@@ -1,0 +1,25 @@
+{
+  "name": "hw8-good_readme_generator",
+  "version": "1.0.0",
+  "description": "Homework 8 - Good README Generator",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "inquirer": "^7.0.4",
+    "util": "^0.12.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Unvaluedfall/HW8-Good_README_Generator.git"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Unvaluedfall/HW8-Good_README_Generator/issues"
+  },
+  "homepage": "https://github.com/Unvaluedfall/HW8-Good_README_Generator#readme"
+}
