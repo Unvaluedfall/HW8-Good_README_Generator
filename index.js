@@ -9,9 +9,7 @@ const fsWriteFile = util.promisify(fs.writeFile)
 
 
 
-
-
-function userPrompt(){
+function ProfilePrompt(){
     return inquirer.prompt([
         {
             type: "input",
@@ -20,6 +18,7 @@ function userPrompt(){
           }
     ])  
 }
+
 function userReadMe(){
     return inquirer.prompt([
         {
@@ -67,33 +66,77 @@ function userReadMe(){
             name: "questions",
             message: "questions"
           }
-    ])
-    
+    ])  
 }
 
 function getProfile(answer){
    return axios.get(`https://api.github.com/users/${answer.name}`).then(function(user){
-   console.log(user.data)
+  //  console.log(user.data)
 
-   const {login, avatar_url, email} = user.data
-   console.log(login + "\n" + avatar_url + "\n" + email)
-})
-
+   const {login, avatar_url} = user.data
+  //  console.log(login + "\n" + avatar_url)
+  return login,avatar_url
+  })
 }
 
-function asdas(){
-
+function getRepos(answer){
+  return axios.get(`https://api.github.com/users/${answer.name}/repos`).then(function(user){
+    user.data.forEach(repo => {
+    
+      const {} = repo
+      console.log(repo)
+    
+    });
+  })
 }
+
+function writeTXT(repo, readme, profile){
+  console.log(repo)
+  console.log(profile)
+  console.log(readme)
+  return ` 
+
+    Title
+    ${repo.data.title}
+    
+    
+    Description
+    Table of Contents
+    Installation
+    Usage
+    License
+    Contributing
+    Tests
+    Questions
+
+
+    Profile
+    ${profile.avatar_url}${profile.login}
+  `
+  
+}
+
+// function writeTxtFile(content){
+//   return fsWriteFile("")
+// }
 
 
 async function init(){
     try{
 
-    const prompt = await userPrompt()
+    const promptProfile = await new ProfilePrompt()
 
-    const profile = await getProfile(prompt)
+    const readmePrompt = await userReadMe()
 
-    // const readMe = await userReadMe()
+    const profileGet = await getProfile(promptProfile)
+    
+    const repoGet = await getRepos(promptProfile)
+    
+    
+    
+    const writeTxt = await writeTXT(repoGet, readmePrompt, profileGet)
+
+      const txtFs = await WriteTxtFile(writeTxt)
 
     } catch(error){
         console.log(error);
